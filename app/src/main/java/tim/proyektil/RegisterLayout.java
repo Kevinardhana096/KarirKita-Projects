@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 public class RegisterLayout {
 
     private HBox mainLayout;
+    private Button loginButton;
 
     public RegisterLayout() {
         // Left pane with illustration
@@ -56,7 +57,7 @@ public class RegisterLayout {
         registerButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
         registerButton.setPrefWidth(200);
         
-        Button loginButton = new Button("Masuk");
+        loginButton = new Button("Masuk");
         loginButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
         loginButton.setPrefWidth(200);
 
@@ -88,5 +89,8 @@ public class RegisterLayout {
     public HBox getMainLayout() {
         return mainLayout;
     }
-}
 
+    public Button getLoginButton(){
+        return loginButton;
+    }
+}

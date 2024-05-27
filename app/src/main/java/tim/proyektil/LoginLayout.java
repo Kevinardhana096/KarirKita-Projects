@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 public class LoginLayout {
 
     private HBox mainLayout;
+    private Button registerButton;
 
     public LoginLayout() {
         // Left pane with illustration
@@ -36,9 +37,9 @@ public class LoginLayout {
         Text loginTitle = new Text("Masuk");
         loginTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
-        Label emailLabel = new Label("Email");
-        TextField emailField = new TextField();
-        emailField.setPromptText("Email");
+        Label userName = new Label("User Name");
+        TextField userField = new TextField();
+        userField.setPromptText("User Name");
 
         Label passwordLabel = new Label("Password");
         PasswordField passwordField = new PasswordField();
@@ -48,13 +49,13 @@ public class LoginLayout {
         loginButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
         loginButton.setPrefWidth(200);
 
-        Button registerButton = new Button("Daftar");
+        registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
         registerButton.setPrefWidth(200);
 
         Label noAccountLabel = new Label("Belum memiliki akun?");
 
-        VBox form = new VBox(10, loginTitle, emailLabel, emailField, passwordLabel, passwordField, loginButton, noAccountLabel, registerButton);
+        VBox form = new VBox(10, loginTitle, userName, userField, passwordLabel, passwordField, loginButton, noAccountLabel, registerButton);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(20));
         form.setMaxWidth(300);
@@ -77,5 +78,9 @@ public class LoginLayout {
 
     public HBox getMainLayout() {
         return mainLayout;
+    }
+
+    public Button getRegisterButton() {
+        return registerButton;
     }
 }
