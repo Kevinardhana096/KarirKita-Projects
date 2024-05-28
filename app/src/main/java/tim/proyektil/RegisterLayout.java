@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import tim.proyektil.config.DbConnect;
 
 public class RegisterLayout {
 
@@ -37,9 +38,9 @@ public class RegisterLayout {
         Text registerTitle = new Text("Daftar");
         registerTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         
-        Label phoneLabel = new Label("Nomor Telepon");
-        TextField phoneField = new TextField();
-        phoneField.setPromptText("Nomor Telepon");
+        Label creatUserLabel = new Label("Create User Name");
+        TextField createUserField = new TextField();
+        createUserField.setPromptText("Create User Name");
 
         Label nameLabel = new Label("Nama Lengkap");
         TextField nameField = new TextField();
@@ -47,23 +48,39 @@ public class RegisterLayout {
 
         Label emailLabel = new Label("Email");
         TextField emailField = new TextField();
-        emailField.setPromptText("Email");
+        emailField.setPromptText("example@gmail.com");
 
-        Label passwordLabel = new Label("Password");
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        Label createPasswordLabel = new Label("Create Password");
+        PasswordField createPasswordField = new PasswordField();
+        createPasswordField.setPromptText("Create Password");
 
         Button registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
         registerButton.setPrefWidth(200);
-        
+        registerButton.setOnAction(event -> {
+            boolean isRegistered = DbConnect.registerUser(createUserField.getText(), nameField.getText(), emailField.getText(), createPasswordField.getText());
+            if (isRegistered) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Registration Successful");
+                alert.setHeaderText(null);
+                alert.setContentText("Registration successful! Please log in.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Registration Failed");
+                alert.setHeaderText(null);
+                alert.setContentText("Registration failed. Please try again.");
+                alert.showAndWait();
+            }
+        });
+
         loginButton = new Button("Masuk");
         loginButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
         loginButton.setPrefWidth(200);
 
         Label hasAccountLabel = new Label("Sudah memiliki akun?");
         
-        VBox form = new VBox(10, registerTitle, phoneLabel, phoneField, nameLabel, nameField, emailLabel, emailField, passwordLabel, passwordField, registerButton, hasAccountLabel, loginButton);
+        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, registerButton, hasAccountLabel, loginButton);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(20));
         form.setMaxWidth(300);

@@ -12,23 +12,22 @@ public class App extends Application {
 
         primaryStage.setTitle("KarirKita");
 
-        // Set the application icon
-        Image icon = new Image(getClass().getResourceAsStream("/Picture2.png"));
+        Image icon = new Image(getClass().getResourceAsStream("/Picture2.png")); // Replace with your icon file
         primaryStage.getIcons().add(icon);
 
-        // Create instances of the login and register layouts
+        // Create an instance of the login and register layout
         LoginLayout loginLayout = new LoginLayout();
         RegisterLayout registerLayout = new RegisterLayout();
 
-        // Create scenes for login and register
         Scene loginScene = new Scene(loginLayout.getMainLayout(), 650, 640);
         Scene registerScene = new Scene(registerLayout.getMainLayout(), 650, 640);
 
-        // Set up button actions to switch scenes
+        // Switch to register scene when register button is clicked
         loginLayout.getRegisterButton().setOnAction(event -> primaryStage.setScene(registerScene));
+
+        // Switch to login scene when login button in register layout is clicked
         registerLayout.getLoginButton().setOnAction(event -> primaryStage.setScene(loginScene));
 
-        // Set the initial scene to loginScene
         primaryStage.setScene(loginScene);
         primaryStage.setResizable(false);
         primaryStage.show();

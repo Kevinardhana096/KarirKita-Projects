@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import tim.proyektil.config.DbConnect;
 
 public class LoginLayout {
 
@@ -48,6 +49,22 @@ public class LoginLayout {
         Button loginButton = new Button("Masuk");
         loginButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
         loginButton.setPrefWidth(200);
+        loginButton.setOnAction(event -> {
+            boolean isValid = DbConnect.validasiLogin(userField.getText(), passwordField.getText());
+            if (isValid) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Login Successful");
+                alert.setHeaderText(null);
+                alert.setContentText("Login successful!");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login Failed");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid username or password.");
+                alert.showAndWait();
+            }
+        });
 
         registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
@@ -80,7 +97,7 @@ public class LoginLayout {
         return mainLayout;
     }
 
-    public Button getRegisterButton() {
+    public Button getRegisterButton(){
         return registerButton;
     }
 }

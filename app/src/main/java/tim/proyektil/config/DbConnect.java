@@ -3,7 +3,6 @@ package tim.proyektil.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DbConnect {
@@ -11,10 +10,8 @@ public class DbConnect {
 
     private static Connection connection;
     private static PreparedStatement preparedStatement;
-    private static ResultSet resultSet;
-    private static String query;
 
-    public static void connection(){
+    public static void connection() {
         try {
             connection = DriverManager.getConnection(DB_URL);
             System.out.println("Database Connected");
@@ -22,6 +19,24 @@ public class DbConnect {
             e.printStackTrace();
         }
     }
+
+    public static boolean registerUser(String username, String fullname, String email, String password) {
+        connection();
+        String query = "INSERT INTO user (user_name, full_name, email, password) VALUES (?, ?, ?, ?)";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, fullname);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, password);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static boolean validasiLogin(String userName, String password) {
         connection();
         String query = "SELECT user_name, password FROM user WHERE user_name=? AND password=?";
@@ -30,7 +45,7 @@ public class DbConnect {
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, password);
 
-            try (ResultSet login = preparedStatement.executeQuery()){
+            try (var login = preparedStatement.executeQuery()) {
                 return login.next();
             }
         } catch (SQLException e) {
