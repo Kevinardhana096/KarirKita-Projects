@@ -23,7 +23,7 @@ public class App extends Application {
 
         Scene loginScene = new Scene(loginLayout.getMainLayout(), 650, 640);
         Scene registerScene = new Scene(registerLayout.getMainLayout(), 650, 640);
-        Scene mainScene = new Scene(mainLayout.getMainLayout(), 865, 505); // Create scene for MainLayout
+        Scene mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
 
         // Switch to register scene when register button is clicked
         loginLayout.getRegisterButton().setOnAction(event -> primaryStage.setScene(registerScene));
