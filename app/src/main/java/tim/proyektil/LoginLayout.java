@@ -15,6 +15,9 @@ public class LoginLayout {
 
     private HBox mainLayout;
     private Button registerButton;
+    public Button loginButton; // Changed from private to public
+    private TextField userField;
+    private PasswordField passwordField;
 
     public LoginLayout() {
         // Left pane with illustration
@@ -39,32 +42,18 @@ public class LoginLayout {
         loginTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
         Label userName = new Label("User Name");
-        TextField userField = new TextField();
+        userField = new TextField();
         userField.setPromptText("User Name");
 
         Label passwordLabel = new Label("Password");
-        PasswordField passwordField = new PasswordField();
+        passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
-        Button loginButton = new Button("Masuk");
+        loginButton = new Button("Masuk");
         loginButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
         loginButton.setPrefWidth(200);
-        loginButton.setOnAction(event -> {
-            boolean isValid = DbConnect.validasiLogin(userField.getText(), passwordField.getText());
-            if (isValid) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login Successful");
-                alert.setHeaderText(null);
-                alert.setContentText("Login successful!");
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Login Failed");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid username or password.");
-                alert.showAndWait();
-            }
-        });
+
+        loginButton.setOnAction(event -> handleLogin());
 
         registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
@@ -97,7 +86,32 @@ public class LoginLayout {
         return mainLayout;
     }
 
-    public Button getRegisterButton(){
+    public Button getRegisterButton() {
         return registerButton;
+    }
+
+    public String getUserName() {
+        return userField.getText();
+    }
+
+    public String getPassword() {
+        return passwordField.getText();
+    }
+
+    private void handleLogin() {
+        String username = getUserName(); // Use the getUserName() method
+        String password = getPassword(); // Use the getPassword() method
+        boolean isValid = DbConnect.validasiLogin(username, password);
+        if (isValid) {
+            // Handle successful login
+            // For now, you can just print a message
+            System.out.println("Login successful!");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Failed");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid username or password.");
+            alert.showAndWait();
+        }
     }
 }
