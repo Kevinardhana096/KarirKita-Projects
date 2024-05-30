@@ -25,6 +25,9 @@ public class App extends Application {
         Scene registerScene = new Scene(registerLayout.getMainLayout(), 650, 640);
         Scene mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
 
+        FormLayout formLayout = new FormLayout(primaryStage, mainScene); // Instantiate FormLayout with primaryStage and mainScene
+        Scene formScene = new Scene(formLayout.createForm(), 650, 505); // Create scene for FormLayout
+
         // Switch to register scene when register button is clicked
         loginLayout.getRegisterButton().setOnAction(event -> primaryStage.setScene(registerScene));
 
@@ -46,6 +49,9 @@ public class App extends Application {
                 alert.showAndWait();
             }
         });
+
+        // Set scene to FormLayout when profile image is clicked
+        mainLayout.getProfileImage().setOnMouseClicked(event -> primaryStage.setScene(formScene));
 
         primaryStage.setScene(loginScene);
         primaryStage.setResizable(false);
