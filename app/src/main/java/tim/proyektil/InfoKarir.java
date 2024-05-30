@@ -1,5 +1,5 @@
 package tim.proyektil;
 
-public class InfoKarirIT {
+public class InfoKarir {
     
 }

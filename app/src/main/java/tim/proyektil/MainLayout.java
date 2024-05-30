@@ -149,11 +149,8 @@ public class MainLayout {
             createButtonWithIcon("Digital", "/Digital.png", 470, 24, 163, 52),
             createButtonWithIcon("Marketing", "/Marketing.png", 672, 24, 163, 52),
             createButtonWithIcon("Pengembangan Diri", "/Pengembangan.png", 267, 91, 163, 52),
-            createButtonWithIcon("Bahasa", "/Bahasa.png", 470, 91, 163, 52),
-            createButtonWithIcon("UKM", "/UKM.png", 672, 91, 163, 52),
-            createButtonWithIcon("Telekomunikasi", "/Telekomunikasi.png", 267, 156, 163, 52),
-            createButtonWithIcon("Desain Visual", "/Design.png", 470, 156, 163, 52),
-            createButtonWithIcon("Analisis Data", "/Analisis.png", 672, 156, 163, 52)
+            createButtonWithIcon("Telekomunikasi", "/Telekomunikasi.png", 470, 91, 163, 52),
+            createButtonWithIcon("Desain Visual", "/Design.png", 672, 91, 163, 52)
         );
     }
 
