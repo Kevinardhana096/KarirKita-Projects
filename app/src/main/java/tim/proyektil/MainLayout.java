@@ -9,17 +9,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainLayout {
+    
     private AnchorPane mainLayout;
     private ImageView profileImageView;
     private ImageView programmingImageView;
     private Label fullNameLabel;
     private SceneSwitcher sceneSwitcher; // Interface for scene switching
+    private Button komunikasiButton;
+    private Button ITButton;
+    private Button keuanganButton;
+    private Button pendidikanButton;
+    private Button seniButton;
+    private Stage primaryStage;
 
-    public MainLayout(SceneSwitcher sceneSwitcher) {
-        this.sceneSwitcher = sceneSwitcher; // Initialize the scene switcher
+    public MainLayout() {
         mainLayout = createMainLayout();
     }
 
@@ -39,8 +46,33 @@ public class MainLayout {
         fullNameLabel.setText("Welcome, " + fullName);
     }
 
+    public Button getKomunikasiButton() {
+        return komunikasiButton;
+    }
+
+    public Button getITButton() {
+        return ITButton;
+    }
+
+    public Button getKeuanganButton() {
+        return keuanganButton;
+    }
+
+    public Button getPendidikanButton() {
+        return pendidikanButton;
+    }
+
+    public Button getSeniButton() {
+        return seniButton;
+    }
+
     private AnchorPane createMainLayout() {
         AnchorPane anchorPane = new AnchorPane();
+
+        HBox topBox = createTopBox();
+        HBox yellowBox = createYellowBox();
+        HBox logoBox = createLogoBox();
+        HBox imBox = createImageTopBox();
 
         // Create the full name label
         fullNameLabel = new Label();
@@ -120,6 +152,15 @@ public class MainLayout {
             createButtonWithLabelAndImage("/image/Seni.png", null)
         });
         topBox.setPrefSize(865, 66);
+
+        topBox.getChildren().addAll(
+            komunikasiButton,
+            ITButton,
+            keuanganButton,
+            pendidikanButton,
+            seniButton 
+        );
+
         return topBox;
     }
 
@@ -248,3 +289,4 @@ public class MainLayout {
         void switchToCourseCommunication();
     }
 }
+
