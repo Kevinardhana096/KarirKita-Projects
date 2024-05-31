@@ -7,55 +7,32 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import tim.proyektil.config.DbConnect;
 
-public class App extends Application implements MainLayout.SceneSwitcher{
+public class App extends Application {
 
-    private Stage primaryStage;
     private Scene mainScene;
-    private Scene courseProgrammingScene;
-    private Scene courseDesignVisualScene;
-    private Scene courseMarketingScene;
-    private Scene courseDigitalScene;
-    private Scene courseCommunicationScene;
-    private FormLayout formLayout;
-    private MainLayout mainLayout;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    
         primaryStage.setTitle("KarirKita");
-
-        Image icon = new Image(getClass().getResourceAsStream("/Picture2.png")); // Replace with your icon file
+    
+        Image icon = new Image(getClass().getResourceAsStream("/image/Picture2.png")); // Replace with your icon file
         primaryStage.getIcons().add(icon);
-
+    
         // Create an instance of the login and register layout
         LoginLayout loginLayout = new LoginLayout();
         RegisterLayout registerLayout = new RegisterLayout();
         MainLayout mainLayout = new MainLayout(primaryStage); // Instantiate MainLayout
-        mainLayout = new MainLayout(this); // Pass the SceneSwitcher to MainLayout
-
-        mainScene = new Scene(mainLayout.getMainLayout(), 900, 505); // Create scene for MainLayout
-
-        // Create instances of the course layouts
-        CourseProgramming courseProgramming = new CourseProgramming(event -> primaryStage.setScene(mainScene), primaryStage);
-        CourseDesignVisual courseDesignVisual = new CourseDesignVisual(event -> primaryStage.setScene(mainScene), primaryStage);
-        CourseMarketing courseMarketing = new CourseMarketing(event -> primaryStage.setScene(mainScene), primaryStage);
-        CourseDigital courseDigital = new CourseDigital(event -> primaryStage.setScene(mainScene), primaryStage);
-        CourseCommunication courseCommunication = new CourseCommunication(event -> primaryStage.setScene(mainScene), primaryStage);
-
-        courseProgrammingScene = courseProgramming.getCourseScene();
-        courseDesignVisualScene = courseDesignVisual.getCourseScene();
-        courseMarketingScene = courseMarketing.getCourseScene();
-        courseDigitalScene = courseDigital.getCourseScene();
-        courseCommunicationScene = courseCommunication.getCourseScene();
-
-
+    
         Scene loginScene = new Scene(loginLayout.getMainLayout(), 650, 640);
         Scene registerScene = new Scene(registerLayout.getMainLayout(), 650, 640);
-        Scene mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
-
-        formLayout = new FormLayout(primaryStage, mainScene, null, null);
-        Scene formScene = new Scene(formLayout.createForm(), 650, 505);
-
+        mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
+    
+        FormLayout formLayout = new FormLayout(primaryStage, mainScene); // Instantiate FormLayout with primaryStage and mainScene
+        Scene formScene = new Scene(formLayout.createForm(), 650, 505); // Create scene for FormLayout
+    
         InfoKarir infoKarir = new InfoKarir(primaryStage, mainScene); // Instantiate InfoKarir with primaryStage and mainScene
         Scene infoKarirScene1 = infoKarir.getScene1(); // Scene for "Komunikasi dan Media"
         Scene infoKarirScene2 = infoKarir.getScene2(); // Scene for "IT"
@@ -75,12 +52,6 @@ public class App extends Application implements MainLayout.SceneSwitcher{
             String password = loginLayout.getPassword();
             boolean isValid = DbConnect.validasiLogin(username, password);
             if (isValid) {
-                String[] userDetails = DbConnect.getUserDetails(username);
-                if (userDetails != null) {
-                    String fullName = userDetails[0];
-                    String email = userDetails[1];
-                    formLayout.setUserDetails(fullName, email);
-                }
                 primaryStage.setScene(mainScene);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -93,6 +64,7 @@ public class App extends Application implements MainLayout.SceneSwitcher{
     
         // Set scene to FormLayout when profile image is clicked
         mainLayout.getProfileImage().setOnMouseClicked(event -> primaryStage.setScene(formScene));
+    
         // Set scene to InfoKarirScene1 when "Komunikasi dan Media" button is clicked
         mainLayout.getKomunikasiButton().setOnAction(event -> primaryStage.setScene(infoKarirScene1));
     
@@ -112,37 +84,8 @@ public class App extends Application implements MainLayout.SceneSwitcher{
         primaryStage.setResizable(false);
         primaryStage.show();
     }
-    @Override
-    public void switchToCourseProgramming() {
-        primaryStage.setScene(courseProgrammingScene);
-        primaryStage.centerOnScreen();
-    }
-
-    @Override
-    public void switchToCourseDesignVisual() {
-        primaryStage.setScene(courseDesignVisualScene);
-        primaryStage.centerOnScreen();
-    }
-
-    @Override
-    public void switchToCourseMarketing() {
-        primaryStage.setScene(courseMarketingScene);
-        primaryStage.centerOnScreen();
-    }
-
-    @Override
-    public void switchToCourseDigital() {
-        primaryStage.setScene(courseDigitalScene);
-        primaryStage.centerOnScreen();
-    }
-
-    @Override
-    public void switchToCourseCommunication() {
-        primaryStage.setScene(courseCommunicationScene);
-        primaryStage.centerOnScreen();
-    }
+    
     public static void main(String[] args) {
-        DbConnect.connection(); // Establish database connection
         launch(args);
     }
 

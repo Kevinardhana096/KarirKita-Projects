@@ -9,34 +9,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FormLayout {
 
     private Stage primaryStage;
     private Scene mainScene;
-    private String fullName;
-    private String email;
-    private TextField nameInput;
-    private TextField emailInput;
 
-    public FormLayout(Stage primaryStage, Scene mainScene, String fullName, String email) {
+    public FormLayout(Stage primaryStage, Scene mainScene) {
         this.primaryStage = primaryStage;
         this.mainScene = mainScene;
-        this.fullName = fullName;
-        this.email = email;
-    }
-
-    public void setUserDetails(String fullName, String email) {
-        this.fullName = fullName;
-        this.email = email;
-        if (nameInput != null) {
-            nameInput.setText(fullName);
-        }
-        if (emailInput != null) {
-            emailInput.setText(email);
-        }
     }
 
     public StackPane createForm() {
@@ -55,17 +41,13 @@ public class FormLayout {
 
         // Create the form elements
         Label nameLabel = new Label("Nama Lengkap");
-        nameInput = new TextField();
-        nameInput.setText(fullName != null ? fullName : ""); // Set full name if available
-        nameInput.setPromptText("Nama Lengkap");
+        TextField nameInput = new TextField();
 
         Label educationLabel = new Label("Pendidikan");
         TextField educationInput = new TextField();
 
         Label emailLabel = new Label("Email");
-        emailInput = new TextField();
-        emailInput.setText(email != null ? email : ""); // Set email if available
-        emailInput.setPromptText("Email");
+        TextField emailInput = new TextField();
 
         Label workExperienceLabel = new Label("Pengalaman Kerja");
         TextField workExperienceInput = new TextField();

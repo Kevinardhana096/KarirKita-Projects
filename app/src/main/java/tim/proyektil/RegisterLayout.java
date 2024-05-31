@@ -51,32 +51,32 @@ public class RegisterLayout {
         emailField.setPromptText("example@gmail.com");
 
         Label createPasswordLabel = new Label("Create Password");
+
+        // Password and Show Password Fields
         PasswordField createPasswordField = new PasswordField();
         createPasswordField.setPromptText("Create Password");
 
-        // TextField for showing password
-        TextField createPasswordFieldVisible = new TextField();
-        createPasswordFieldVisible.setPromptText("Create Password");
-        createPasswordFieldVisible.setManaged(false);
-        createPasswordFieldVisible.setVisible(false);
+        TextField showPasswordField = new TextField();
+        showPasswordField.setPromptText("Create Password");
+        showPasswordField.setVisible(false);
 
-        // Checkbox to toggle password visibility
-        CheckBox showPasswordCheckbox = new CheckBox("Show Password");
-        showPasswordCheckbox.setOnAction(event -> {
-            if (showPasswordCheckbox.isSelected()) {
-                createPasswordFieldVisible.setText(createPasswordField.getText());
-                createPasswordFieldVisible.setManaged(true);
-                createPasswordFieldVisible.setVisible(true);
-                createPasswordField.setManaged(false);
+        CheckBox showPasswordCheckBox = new CheckBox("Show Password");
+
+        // Listener to toggle visibility
+        showPasswordCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            if (isSelected) {
+                showPasswordField.setText(createPasswordField.getText());
+                showPasswordField.setVisible(true);
                 createPasswordField.setVisible(false);
             } else {
-                createPasswordField.setText(createPasswordFieldVisible.getText());
-                createPasswordField.setManaged(true);
+                createPasswordField.setText(showPasswordField.getText());
                 createPasswordField.setVisible(true);
-                createPasswordFieldVisible.setManaged(false);
-                createPasswordFieldVisible.setVisible(false);
+                showPasswordField.setVisible(false);
             }
         });
+
+        // Bind the text properties so that they stay in sync
+        createPasswordField.textProperty().bindBidirectional(showPasswordField.textProperty());
 
         Button registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
@@ -104,7 +104,7 @@ public class RegisterLayout {
 
         Label hasAccountLabel = new Label("Sudah memiliki akun?");
         
-        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, createPasswordFieldVisible, showPasswordCheckbox, registerButton, hasAccountLabel, loginButton);
+        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, showPasswordCheckBox, registerButton, hasAccountLabel, loginButton);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(20));
         form.setMaxWidth(300);
