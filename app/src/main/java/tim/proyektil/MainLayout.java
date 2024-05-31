@@ -10,12 +10,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainLayout {
+    
     private AnchorPane mainLayout;
     private ImageView profileImageView; // Deklarasikan profileImageView
+    private Button komunikasiButton;
+    private Button ITButton;
+    private Button keuanganButton;
+    private Button pendidikanButton;
+    private Button seniButton;
+    private Stage primaryStage;
 
-    public MainLayout() {
+    public MainLayout(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         mainLayout = createMainLayout();
     }
 
@@ -25,6 +34,26 @@ public class MainLayout {
 
     public ImageView getProfileImage() {
         return profileImageView; // Kembalikan profileImageView
+    }
+
+    public Button getKomunikasiButton() {
+        return komunikasiButton;
+    }
+
+    public Button getITButton() {
+        return ITButton;
+    }
+
+    public Button getKeuanganButton() {
+        return keuanganButton;
+    }
+
+    public Button getPendidikanButton() {
+        return pendidikanButton;
+    }
+
+    public Button getSeniButton() {
+        return seniButton;
     }
 
     private AnchorPane createMainLayout() {
@@ -96,12 +125,17 @@ public class MainLayout {
         topBox.setLayoutY(84);
         topBox.setPrefSize(865, 66);
 
+        komunikasiButton = createButtonWithLabelAndImage("/Komunikasi.png", 35, 84, 146, 66);
+        ITButton = createButtonWithLabelAndImage("/IT.png", 206, 84, 146, 66);
+        keuanganButton = createButtonWithLabelAndImage("/Akuntansi.png", 370, 84, 146, 66);
+        pendidikanButton = createButtonWithLabelAndImage("/Pendidikan.png", 532, 84, 146, 66);
+        seniButton = createButtonWithLabelAndImage("/Seni.png", 693, 84, 146, 66);
         topBox.getChildren().addAll(
-            createButtonWithLabelAndImage("/Komunikasi.png", 35, 84, 146, 66),
-            createButtonWithLabelAndImage("/IT.png", 206, 84, 146, 66),
-            createButtonWithLabelAndImage("/Akuntansi.png", 370, 84, 146, 66),
-            createButtonWithLabelAndImage("/Pendidikan.png", 532, 84, 146, 66),
-            createButtonWithLabelAndImage("/Seni.png", 693, 84, 146, 66)
+            komunikasiButton,
+            ITButton,
+            keuanganButton,
+            pendidikanButton,
+            seniButton      
         );
 
         return topBox;
@@ -207,3 +241,4 @@ public class MainLayout {
         return label;
     }
 }
+
