@@ -3,6 +3,7 @@ package tim.proyektil.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DbConnect {
@@ -52,5 +53,23 @@ public class DbConnect {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String[] getUserDetails(String username) {
+        connection();
+        String query = "SELECT full_name, email FROM user WHERE user_name=?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new String[]{resultSet.getString("full_name"), resultSet.getString("email")};
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

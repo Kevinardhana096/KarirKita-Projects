@@ -21,7 +21,7 @@ public class LoginLayout {
 
     public LoginLayout() {
         // Left pane with illustration
-        Image image = new Image(getClass().getResource("/Picture1.png").toString()); // Load image from resources
+        Image image = new Image(getClass().getResource("/image/Picture1.png").toString()); // Load image from resources
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(300);
         imageView.setFitHeight(400);
@@ -29,7 +29,7 @@ public class LoginLayout {
         leftPane.setStyle("-fx-background-color: #f8f8f8;");
 
         // Logo
-        Image logoImage = new Image(getClass().getResource("/Picture2.png").toString()); // Load logo from resources
+        Image logoImage = new Image(getClass().getResource("/image/Picture2.png").toString()); // Load logo from resources
         ImageView logoImageView = new ImageView(logoImage);
         logoImageView.setFitWidth(100);
         logoImageView.setPreserveRatio(true);

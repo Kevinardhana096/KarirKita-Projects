@@ -9,20 +9,34 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class FormLayout {
 
     private Stage primaryStage;
     private Scene mainScene;
+    private String fullName;
+    private String email;
+    private TextField nameInput;
+    private TextField emailInput;
 
-    public FormLayout(Stage primaryStage, Scene mainScene) {
+    public FormLayout(Stage primaryStage, Scene mainScene, String fullName, String email) {
         this.primaryStage = primaryStage;
         this.mainScene = mainScene;
+        this.fullName = fullName;
+        this.email = email;
+    }
+
+    public void setUserDetails(String fullName, String email) {
+        this.fullName = fullName;
+        this.email = email;
+        if (nameInput != null) {
+            nameInput.setText(fullName);
+        }
+        if (emailInput != null) {
+            emailInput.setText(email);
+        }
     }
 
     public StackPane createForm() {
@@ -41,13 +55,17 @@ public class FormLayout {
 
         // Create the form elements
         Label nameLabel = new Label("Nama Lengkap");
-        TextField nameInput = new TextField();
+        nameInput = new TextField();
+        nameInput.setText(fullName != null ? fullName : ""); // Set full name if available
+        nameInput.setPromptText("Nama Lengkap");
 
         Label educationLabel = new Label("Pendidikan");
         TextField educationInput = new TextField();
 
         Label emailLabel = new Label("Email");
-        TextField emailInput = new TextField();
+        emailInput = new TextField();
+        emailInput.setText(email != null ? email : ""); // Set email if available
+        emailInput.setPromptText("Email");
 
         Label workExperienceLabel = new Label("Pengalaman Kerja");
         TextField workExperienceInput = new TextField();
@@ -70,7 +88,7 @@ public class FormLayout {
         });
 
         // Add a placeholder for the profile picture
-        ImageView profilePicture = new ImageView(new Image(getClass().getResourceAsStream("/Profil.png")));
+        ImageView profilePicture = new ImageView(new Image(getClass().getResourceAsStream("/image/Profil.png")));
         profilePicture.setFitHeight(35);
         profilePicture.setFitWidth(35);
 

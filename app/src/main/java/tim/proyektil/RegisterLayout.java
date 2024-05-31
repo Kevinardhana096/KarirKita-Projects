@@ -18,7 +18,7 @@ public class RegisterLayout {
 
     public RegisterLayout() {
         // Left pane with illustration
-        Image image = new Image(getClass().getResource("/Picture1.png").toString()); // Load image from resources
+        Image image = new Image(getClass().getResource("/image/Picture1.png").toString()); // Load image from resources
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(300);
         imageView.setFitHeight(400);
@@ -26,7 +26,7 @@ public class RegisterLayout {
         leftPane.setStyle("-fx-background-color: #f8f8f8;");
         
         // Logo
-        Image logoImage = new Image(getClass().getResource("/Picture2.png").toString()); // Load logo from resources
+        Image logoImage = new Image(getClass().getResource("/image/Picture2.png").toString()); // Load logo from resources
         ImageView logoImageView = new ImageView(logoImage);
         logoImageView.setFitWidth(100);
         logoImageView.setPreserveRatio(true);
@@ -54,6 +54,30 @@ public class RegisterLayout {
         PasswordField createPasswordField = new PasswordField();
         createPasswordField.setPromptText("Create Password");
 
+        // TextField for showing password
+        TextField createPasswordFieldVisible = new TextField();
+        createPasswordFieldVisible.setPromptText("Create Password");
+        createPasswordFieldVisible.setManaged(false);
+        createPasswordFieldVisible.setVisible(false);
+
+        // Checkbox to toggle password visibility
+        CheckBox showPasswordCheckbox = new CheckBox("Show Password");
+        showPasswordCheckbox.setOnAction(event -> {
+            if (showPasswordCheckbox.isSelected()) {
+                createPasswordFieldVisible.setText(createPasswordField.getText());
+                createPasswordFieldVisible.setManaged(true);
+                createPasswordFieldVisible.setVisible(true);
+                createPasswordField.setManaged(false);
+                createPasswordField.setVisible(false);
+            } else {
+                createPasswordField.setText(createPasswordFieldVisible.getText());
+                createPasswordField.setManaged(true);
+                createPasswordField.setVisible(true);
+                createPasswordFieldVisible.setManaged(false);
+                createPasswordFieldVisible.setVisible(false);
+            }
+        });
+
         Button registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
         registerButton.setPrefWidth(200);
@@ -80,7 +104,7 @@ public class RegisterLayout {
 
         Label hasAccountLabel = new Label("Sudah memiliki akun?");
         
-        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, registerButton, hasAccountLabel, loginButton);
+        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, createPasswordFieldVisible, showPasswordCheckbox, registerButton, hasAccountLabel, loginButton);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(20));
         form.setMaxWidth(300);
