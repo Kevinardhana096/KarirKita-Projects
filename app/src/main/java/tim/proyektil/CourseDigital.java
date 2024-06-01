@@ -1,10 +1,11 @@
 package tim.proyektil;
 
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class CourseDigital extends BaseCourseScene {
 
-    public CourseDigital(javafx.event.EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
+    public CourseDigital(EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
         super("Digital",
               new String[]{
                   "/image/Marketing 4.0.png",

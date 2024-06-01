@@ -1,10 +1,11 @@
 package tim.proyektil;
 
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class CourseMarketing extends BaseCourseScene {
 
-    public CourseMarketing(javafx.event.EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
+    public CourseMarketing(EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
         super("Marketing",
               new String[]{
                   "/image/AI in Marketing.png",

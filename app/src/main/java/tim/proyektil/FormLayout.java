@@ -42,6 +42,7 @@ public class FormLayout {
         // Create the form elements
         Label nameLabel = new Label("Nama Lengkap");
         TextField nameInput = new TextField();
+        nameInput.setPromptText("Final name");
 
         Label educationLabel = new Label("Pendidikan");
         TextField educationInput = new TextField();
@@ -71,8 +72,8 @@ public class FormLayout {
 
         // Add a placeholder for the profile picture
         ImageView profilePicture = new ImageView(new Image(getClass().getResourceAsStream("/image/Profil.png")));
-        profilePicture.setFitHeight(35);
-        profilePicture.setFitWidth(35);
+        profilePicture.setFitHeight(60);
+        profilePicture.setFitWidth(60);
 
         // Add elements to the grid and center them
         GridPane.setHalignment(profilePicture, HPos.CENTER);

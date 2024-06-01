@@ -20,10 +20,10 @@ public class RegisterLayout {
         // Left pane with illustration
         Image image = new Image(getClass().getResource("/image/Picture1.png").toString()); // Load image from resources
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(300);
-        imageView.setFitHeight(400);
+        imageView.setFitWidth(255);
+        imageView.setFitHeight(280);
         StackPane leftPane = new StackPane(imageView);
-        leftPane.setStyle("-fx-background-color: #f8f8f8;");
+        leftPane.setStyle("-fx-background-color: #fbfcfa;");
         
         // Logo
         Image logoImage = new Image(getClass().getResource("/image/Picture2.png").toString()); // Load logo from resources
@@ -36,28 +36,28 @@ public class RegisterLayout {
 
         // Right pane with register form
         Text registerTitle = new Text("Daftar");
-        registerTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        registerTitle.setFont(Font.font("Quicksand", FontWeight.BOLD, 24));
         
         Label creatUserLabel = new Label("Create User Name");
         TextField createUserField = new TextField();
-        createUserField.setPromptText("Create User Name");
+        createUserField.setStyle("-fx-background-radius:30;");
 
         Label nameLabel = new Label("Nama Lengkap");
         TextField nameField = new TextField();
-        nameField.setPromptText("Nama Lengkap");
+        nameField.setStyle("-fx-background-radius:30;");
 
         Label emailLabel = new Label("Email");
         TextField emailField = new TextField();
         emailField.setPromptText("example@gmail.com");
+        emailField.setStyle("-fx-background-radius:30;");
 
         Label createPasswordLabel = new Label("Create Password");
 
         // Password and Show Password Fields
         PasswordField createPasswordField = new PasswordField();
-        createPasswordField.setPromptText("Create Password");
+        createPasswordField.setStyle("-fx-background-radius:30;");
 
         TextField showPasswordField = new TextField();
-        showPasswordField.setPromptText("Create Password");
         showPasswordField.setVisible(false);
 
         CheckBox showPasswordCheckBox = new CheckBox("Show Password");
@@ -79,7 +79,7 @@ public class RegisterLayout {
         createPasswordField.textProperty().bindBidirectional(showPasswordField.textProperty());
 
         Button registerButton = new Button("Daftar");
-        registerButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
+        registerButton.setStyle("-fx-background-color: #6DC4D0;" +  "-fx-text-fill: white;" + "-fx-background-radius:50;" + "-fx-padding: 5 5;");
         registerButton.setPrefWidth(200);
         registerButton.setOnAction(event -> {
             boolean isRegistered = DbConnect.registerUser(createUserField.getText(), nameField.getText(), emailField.getText(), createPasswordField.getText());
@@ -99,7 +99,7 @@ public class RegisterLayout {
         });
 
         loginButton = new Button("Masuk");
-        loginButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
+        loginButton.setStyle("-fx-background-color: #cc7a32;" +  "-fx-text-fill: white;" + "-fx-background-radius:50;" + "-fx-padding:3 3;");
         loginButton.setPrefWidth(200);
 
         Label hasAccountLabel = new Label("Sudah memiliki akun?");
@@ -111,7 +111,7 @@ public class RegisterLayout {
 
         // Create a VBox with a border
         VBox formWithBorder = new VBox(form);
-        formWithBorder.setStyle("-fx-border-color: #000000; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 10;");
+        formWithBorder.setStyle("-fx-border-color: #BFBCBC; -fx-border-width: 1; -fx-border-radius:20; -fx-padding: 10;");
         formWithBorder.setAlignment(Pos.CENTER);
         formWithBorder.setMaxWidth(350); // Optional: To control the width of the border
         formWithBorder.setPadding(new Insets(10));

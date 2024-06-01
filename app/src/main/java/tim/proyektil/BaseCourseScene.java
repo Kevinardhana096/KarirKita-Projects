@@ -1,5 +1,6 @@
 package tim.proyektil;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -29,8 +30,9 @@ public abstract class BaseCourseScene {
     protected String[] imagePaths;
     protected String[] pdfPaths;
     protected Stage primaryStage;
+    protected Scene mainScene;
 
-    public BaseCourseScene(String headerText, String[] imagePaths, String[] pdfPaths, javafx.event.EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
+    public BaseCourseScene(String headerText, String[] imagePaths, String[] pdfPaths, EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
         this.headerText = headerText;
         this.imagePaths = imagePaths;
         this.pdfPaths = pdfPaths;

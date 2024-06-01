@@ -23,10 +23,10 @@ public class LoginLayout {
         // Left pane with illustration
         Image image = new Image(getClass().getResource("/image/Picture1.png").toString()); // Load image from resources
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(300);
-        imageView.setFitHeight(400);
+        imageView.setFitWidth(255);
+        imageView.setFitHeight(280);
         StackPane leftPane = new StackPane(imageView);
-        leftPane.setStyle("-fx-background-color: #f8f8f8;");
+        leftPane.setStyle("-fx-background-color: #fbbfcfa;");
 
         // Logo
         Image logoImage = new Image(getClass().getResource("/image/Picture2.png").toString()); // Load logo from resources
@@ -39,25 +39,27 @@ public class LoginLayout {
 
         // Right pane with login form
         Text loginTitle = new Text("Masuk");
-        loginTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        loginTitle.setFont(Font.font("Quicksand", FontWeight.BOLD, 24));
 
         Label userName = new Label("User Name");
         userField = new TextField();
-        userField.setPromptText("User Name");
+        userField.setStyle("-fx-background-radius:30;");
 
         Label passwordLabel = new Label("Password");
         passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        passwordField.setStyle("-fx-background-radius:30;");
 
         loginButton = new Button("Masuk");
-        loginButton.setStyle("-fx-background-color: #6FC3DF; -fx-text-fill: white;");
+        loginButton.setStyle("-fx-background-color: #6DC4D0;" +  "-fx-text-fill: white;" + "-fx-background-radius:50;" + "-fx-padding: 5 5;");
         loginButton.setPrefWidth(200);
+        loginButton.setFont(Font.font("Quicksand", 15));
 
         loginButton.setOnAction(event -> handleLogin());
 
         registerButton = new Button("Daftar");
-        registerButton.setStyle("-fx-background-color: #FF6F00; -fx-text-fill: white;");
+        registerButton.setStyle("-fx-background-color: #cc7a32;" +  "-fx-text-fill: white;" + "-fx-background-radius:50;" + "-fx-padding:3 3;");
         registerButton.setPrefWidth(200);
+        registerButton.setFont(Font.font("Quicksand", 10));
 
         Label noAccountLabel = new Label("Belum memiliki akun?");
 
@@ -68,9 +70,14 @@ public class LoginLayout {
 
         // Create a VBox with a border
         VBox formWithBorder = new VBox(form);
-        formWithBorder.setStyle("-fx-border-color: #000000; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 10;");
+        formWithBorder.setStyle("-fx-border-color: #BFBCBC; -fx-border-width: 1; -fx-border-radius:20; -fx-padding: 10;");
         formWithBorder.setAlignment(Pos.CENTER);
         formWithBorder.setLayoutX(400);
+
+        // HBox logoo = new HBox(logoPane);
+        // logoo.setAlignment(Pos.TOP_CENTER);
+        // logoo.setStyle("-fx-background-color: white;");
+        // logoo.setPadding(new Insets(20));
 
         VBox rightPane = new VBox(10, logoPane, formWithBorder);
         rightPane.setAlignment(Pos.TOP_CENTER);

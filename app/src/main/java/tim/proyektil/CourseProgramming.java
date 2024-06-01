@@ -1,10 +1,11 @@
 package tim.proyektil;
 
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class CourseProgramming extends BaseCourseScene {
 
-    public CourseProgramming(javafx.event.EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
+    public CourseProgramming(EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
         super("Programming",
               new String[]{
                   "/image/Program.png",

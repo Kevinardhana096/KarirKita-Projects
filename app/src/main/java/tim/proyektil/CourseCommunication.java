@@ -1,9 +1,10 @@
 package tim.proyektil;
 
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class CourseCommunication extends BaseCourseScene {
-    public CourseCommunication(javafx.event.EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage){
+    public CourseCommunication(EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage){
         super("Communication", 
                 new String[]{
                     "/image/Communication Theory.png",

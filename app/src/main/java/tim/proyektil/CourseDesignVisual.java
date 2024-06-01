@@ -1,10 +1,11 @@
 package tim.proyektil;
 
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class CourseDesignVisual extends BaseCourseScene {
 
-    public CourseDesignVisual(javafx.event.EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
+    public CourseDesignVisual(EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
         super("Design Visual",
               new String[]{
                   "/image/Computer Graphic.png",

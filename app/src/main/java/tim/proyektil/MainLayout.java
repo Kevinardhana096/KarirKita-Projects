@@ -14,19 +14,25 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainLayout {
-    
+
     private AnchorPane mainLayout;
-    private ImageView profileImageView; // Deklarasikan profileImageView
+    private ImageView profileImageView;
     private Button komunikasiButton;
     private Button ITButton;
     private Button keuanganButton;
     private Button pendidikanButton;
     private Button seniButton;
-    private Button programmingButton; // Tambahkan tombol Programming
+    private Button programmingButton;
+    private Button digitalButton;
+    private Button marketingButton;
+    private Button telekomunikasiButton;
+    private Button desainVisualButton;
     private Stage primaryStage;
+    private Scene mainScene; // Tambahkan mainScene
 
-    public MainLayout(Stage primaryStage) {
+    public MainLayout(Stage primaryStage, Scene mainScene) {
         this.primaryStage = primaryStage;
+        this.mainScene = mainScene; // Inisialisasi mainScene
         mainLayout = createMainLayout();
     }
 
@@ -35,7 +41,7 @@ public class MainLayout {
     }
 
     public ImageView getProfileImage() {
-        return profileImageView; // Kembalikan profileImageView
+        return profileImageView;
     }
 
     public Button getKomunikasiButton() {
@@ -59,7 +65,23 @@ public class MainLayout {
     }
 
     public Button getProgrammingButton() {
-        return programmingButton; // Getter untuk tombol Programming
+        return programmingButton;
+    }
+
+    public Button getDigitalButton() {
+        return digitalButton;
+    }
+
+    public Button getMarketingButton() {
+        return marketingButton;
+    }
+
+    public Button getTelekomunikasiButton() {
+        return telekomunikasiButton;
+    }
+
+    public Button getDesainVisualButton() {
+        return desainVisualButton;
     }
 
     private AnchorPane createMainLayout() {
@@ -93,7 +115,7 @@ public class MainLayout {
     }
 
     private ImageView ImageTop(String imagePath, javafx.event.EventHandler<MouseEvent> eventHandler) {
-        ImageView imageTopView = new ImageView(imagePath);
+        ImageView imageTopView = new ImageView(new Image(getClass().getResourceAsStream(imagePath)));
         imageTopView.setFitHeight(20);
         imageTopView.setFitWidth(20);
 
@@ -130,11 +152,11 @@ public class MainLayout {
         topBox.setLayoutY(84);
         topBox.setPrefSize(865, 66);
 
-        komunikasiButton = createButtonWithLabelAndImage("/image/Komunikasi.png", 35, 84, 146, 66);
-        ITButton = createButtonWithLabelAndImage("/image/IT.png", 206, 84, 146, 66);
-        keuanganButton = createButtonWithLabelAndImage("/image/Akuntansi.png", 370, 84, 146, 66);
-        pendidikanButton = createButtonWithLabelAndImage("/image/Pendidikan.png", 532, 84, 146, 66);
-        seniButton = createButtonWithLabelAndImage("/image/Seni.png", 693, 84, 146, 66);
+        komunikasiButton = createButtonWithLabelAndImage("/image/Komunikasi.png", 35, 84, 146, 66, null);
+        ITButton = createButtonWithLabelAndImage("/image/IT.png", 206, 84, 146, 66, null);
+        keuanganButton = createButtonWithLabelAndImage("/image/Akuntansi.png", 370, 84, 146, 66, null);
+        pendidikanButton = createButtonWithLabelAndImage("/image/Pendidikan.png", 532, 84, 146, 66, null);
+        seniButton = createButtonWithLabelAndImage("/image/Seni.png", 693, 84, 146, 66, null);
         topBox.getChildren().addAll(
             komunikasiButton,
             ITButton,
@@ -185,18 +207,41 @@ public class MainLayout {
     private void addButtonsToInnerPane(AnchorPane innerAnchorPane) {
         innerAnchorPane.getChildren().addAll(
             createButtonWithIcon("Programming", "/image/Programming1.png", 267, 24, 163, 52, event -> openCourseProgrammingLayout()),
-            createButtonWithIcon("Digital", "/image/Digital.png", 470, 24, 163, 52, null),
-            createButtonWithIcon("Marketing", "/image/Marketing.png", 672, 24, 163, 52, null),
-            createButtonWithIcon("Pengembangan Diri", "/image/Pengembangan.png", 267, 91, 163, 52, null),
-            createButtonWithIcon("Telekomunikasi", "/image/Telekomunikasi.png", 470, 91, 163, 52, null),
-            createButtonWithIcon("Desain Visual", "/image/Design.png", 672, 91, 163, 52,null)
+            createButtonWithIcon("Digital", "/image/Digital.png", 470, 24, 163, 52, event -> openCourseDigitalLayout()),
+            createButtonWithIcon("Marketing", "/image/Marketing.png", 672, 24, 163, 52, event -> openCourseMarketingLayout()),
+            createButtonWithIcon("Desain Visual", "/image/Design.png", 267, 91, 163, 52, event -> openCourseDesignVisualLayout()),
+            createButtonWithIcon("Telekomunikasi", "/image/Telekomunikasi.png", 470, 91, 163, 52, event -> openCourseCommunicationLayout())
         );
     }
 
     private void openCourseProgrammingLayout() {
         // Create an instance of CourseProgramming and navigate to it
-        CourseProgramming courseProgramming = new CourseProgramming(event -> primaryStage.setScene(mainLayout), primaryStage);
+        CourseProgramming courseProgramming = new CourseProgramming(event -> primaryStage.setScene(mainScene), primaryStage);
         primaryStage.setScene(courseProgramming.getCourseScene());
+    }
+
+    private void openCourseDigitalLayout() {
+        // Create an instance of CourseDigital and navigate to it
+        CourseDigital courseDigital = new CourseDigital(event -> primaryStage.setScene(mainScene), primaryStage);
+        primaryStage.setScene(courseDigital.getCourseScene());
+    }
+
+    private void openCourseMarketingLayout() {
+        // Create an instance of CourseMarketing and navigate to it
+        CourseMarketing courseMarketing = new CourseMarketing(event -> primaryStage.setScene(mainScene), primaryStage);
+        primaryStage.setScene(courseMarketing.getCourseScene());
+    }
+
+    private void openCourseCommunicationLayout() {
+        // Create an instance of CourseCommunication and navigate to it
+        CourseCommunication courseCommunication = new CourseCommunication(event -> primaryStage.setScene(mainScene), primaryStage);
+        primaryStage.setScene(courseCommunication.getCourseScene());
+    }
+
+    private void openCourseDesignVisualLayout() {
+        // Create an instance of CourseDesignVisual and navigate to it
+        CourseDesignVisual courseDesignVisual = new CourseDesignVisual(event -> primaryStage.setScene(mainScene), primaryStage);
+        primaryStage.setScene(courseDesignVisual.getCourseScene());
     }
 
     private AnchorPane createWhiteSpace() {
@@ -207,7 +252,7 @@ public class MainLayout {
         return whiteSpace;
     }
 
-    private Button createButtonWithLabelAndImage(String imagePath, double layoutX, double layoutY, double prefWidth, double prefHeight) {
+    private Button createButtonWithLabelAndImage(String imagePath, double layoutX, double layoutY, double prefWidth, double prefHeight, javafx.event.EventHandler<MouseEvent> eventHandler) {
         Button button = new Button();
         button.setPrefSize(prefWidth, prefHeight);
         button.setStyle("-fx-background-color: #FFFFFF;");
@@ -216,6 +261,10 @@ public class MainLayout {
         imageView.setFitWidth(146);
         imageView.setFitHeight(66);
         button.setGraphic(imageView);
+
+        if (eventHandler != null) {
+            button.setOnMouseClicked(eventHandler);
+        }
 
         VBox vbox = new VBox(5);
         vbox.setAlignment(Pos.CENTER);
