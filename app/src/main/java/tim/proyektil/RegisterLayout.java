@@ -2,6 +2,7 @@ package tim.proyektil;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import tim.proyektil.config.DbConnect;
 
 public class RegisterLayout {
@@ -16,7 +18,7 @@ public class RegisterLayout {
     private HBox mainLayout;
     private Button loginButton;
 
-    public RegisterLayout() {
+    public RegisterLayout(Stage primaryStage, Scene mainScene) {
         // Left pane with illustration
         Image image = new Image(getClass().getResource("/image/Picture1.png").toString()); // Load image from resources
         ImageView imageView = new ImageView(image);
@@ -89,6 +91,11 @@ public class RegisterLayout {
                 alert.setHeaderText(null);
                 alert.setContentText("Registration successful! Please log in.");
                 alert.showAndWait();
+
+                // Buka form layout setelah registrasi berhasil
+                FormLayout formLayout = new FormLayout(primaryStage, mainScene, createUserField.getText());
+                Scene formScene = new Scene(formLayout.createForm(), 800, 600);
+                primaryStage.setScene(formScene);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Registration Failed");

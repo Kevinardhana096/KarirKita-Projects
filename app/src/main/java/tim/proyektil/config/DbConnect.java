@@ -10,7 +10,6 @@ public class DbConnect {
     private static final String DB_URL = "jdbc:sqlite:db/db_user.db";
 
     private static Connection connection;
-    private static PreparedStatement preparedStatement;
 
     public static void connection() {
         try {
@@ -25,7 +24,7 @@ public class DbConnect {
         connection();
         String query = "INSERT INTO user (user_name, full_name, email, password) VALUES (?, ?, ?, ?)";
         try {
-            preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, fullname);
             preparedStatement.setString(3, email);
@@ -42,7 +41,7 @@ public class DbConnect {
         connection();
         String query = "SELECT user_name, password FROM user WHERE user_name=? AND password=?";
         try {
-            preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, password);
 
@@ -59,7 +58,7 @@ public class DbConnect {
         connection();
         String query = "SELECT full_name, email FROM user WHERE user_name=?";
         try {
-            preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

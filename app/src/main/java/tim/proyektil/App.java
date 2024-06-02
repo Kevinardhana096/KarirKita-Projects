@@ -2,7 +2,6 @@ package tim.proyektil;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -22,29 +21,15 @@ public class App extends Application {
         
         // Create an instance of the login and register layout
         LoginLayout loginLayout = new LoginLayout();
-        RegisterLayout registerLayout = new RegisterLayout();
+        RegisterLayout registerLayout = new RegisterLayout(primaryStage, null);
         MainLayout mainLayout = new MainLayout(primaryStage, mainScene); // Instantiate MainLayout with mainScene
         
         Scene loginScene = new Scene(loginLayout.getMainLayout(), 650, 640);
         Scene registerScene = new Scene(registerLayout.getMainLayout(), 650, 640);
         mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
         
-        FormLayout formLayout = new FormLayout(primaryStage, mainScene); // Instantiate FormLayout with primaryStage and mainScene
-        Scene formScene = new Scene(formLayout.createForm(), 900, 600); // Create scene for FormLayout
-        
-        // Instantiate Info Scenes
-        KomunikasiScene komunikasiScene = new KomunikasiScene(primaryStage, mainScene);
-        ITScene itScene = new ITScene(primaryStage, mainScene);
-        KeuanganScene keuanganScene = new KeuanganScene(primaryStage, mainScene);
-        PendidikanScene pendidikanScene = new PendidikanScene(primaryStage, mainScene);
-        SeniDesainScene seniDesainScene = new SeniDesainScene(primaryStage, mainScene);
-
-        EventHandler<ActionEvent> backButtonHandler = event -> primaryStage.setScene(mainScene);
-        
-        // Switch to register scene when register button is clicked
+        // Set scene transitions from login to register and vice versa
         loginLayout.getRegisterButton().setOnAction(event -> primaryStage.setScene(registerScene));
-        
-        // Switch to login scene when login button in register layout is clicked
         registerLayout.getLoginButton().setOnAction(event -> primaryStage.setScene(loginScene));
         
         // Set scene to MainLayout when login is successful
@@ -63,13 +48,19 @@ public class App extends Application {
             }
         });
         
+        // Set scene transitions from MainLayout to form layout
+        mainLayout.getProfileImage().setOnMouseClicked(event -> {
+            FormLayout formLayout = new FormLayout(primaryStage, mainScene, loginLayout.getUserName());
+            Scene formScene = new Scene(formLayout.createForm(), 900, 600);
+            primaryStage.setScene(formScene);
+        });
+
         // Set scene transitions from MainLayout to other scenes
-        mainLayout.getProfileImage().setOnMouseClicked(event -> primaryStage.setScene(formScene));
-        mainLayout.getKomunikasiButton().setOnAction(event -> primaryStage.setScene(komunikasiScene.getScene()));
-        mainLayout.getITButton().setOnAction(event -> primaryStage.setScene(itScene.getScene()));
-        mainLayout.getKeuanganButton().setOnAction(event -> primaryStage.setScene(keuanganScene.getScene()));
-        mainLayout.getPendidikanButton().setOnAction(event -> primaryStage.setScene(pendidikanScene.getScene()));
-        mainLayout.getSeniButton().setOnAction(event -> primaryStage.setScene(seniDesainScene.getScene()));
+        mainLayout.getKomunikasiButton().setOnAction(event -> primaryStage.setScene(new KomunikasiScene(primaryStage, mainScene).getScene()));
+        mainLayout.getITButton().setOnAction(event -> primaryStage.setScene(new ITScene(primaryStage, mainScene).getScene()));
+        mainLayout.getKeuanganButton().setOnAction(event -> primaryStage.setScene(new KeuanganScene(primaryStage, mainScene).getScene()));
+        mainLayout.getPendidikanButton().setOnAction(event -> primaryStage.setScene(new PendidikanScene(primaryStage, mainScene).getScene()));
+        mainLayout.getSeniButton().setOnAction(event -> primaryStage.setScene(new SeniDesainScene(primaryStage, mainScene).getScene()));
         
         primaryStage.setScene(loginScene);
         primaryStage.setResizable(false);
@@ -78,9 +69,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public Object getGreeting() {
-        throw new UnsupportedOperationException("Unimplemented method 'getGreeting'");
     }
 }

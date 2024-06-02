@@ -14,15 +14,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tim.proyektil.config.DbConnect;
 
 public class FormLayout {
 
     private Stage primaryStage;
     private Scene mainScene;
+    private String username;
 
-    public FormLayout(Stage primaryStage, Scene mainScene) {
+    public FormLayout(Stage primaryStage, Scene mainScene, String username) {
         this.primaryStage = primaryStage;
         this.mainScene = mainScene;
+        this.username = username;
     }
 
     public StackPane createForm() {
@@ -42,7 +45,7 @@ public class FormLayout {
         // Create the form elements
         Label nameLabel = new Label("Nama Lengkap");
         TextField nameInput = new TextField();
-        nameInput.setPromptText("Final name");
+        nameInput.setPromptText("Nama Lengkap");
 
         Label educationLabel = new Label("Pendidikan");
         TextField educationInput = new TextField();
@@ -59,10 +62,7 @@ public class FormLayout {
         Button saveButton = new Button("Simpan");
         saveButton.setStyle("-fx-background-color: #D67C29; -fx-text-fill: white;");
         
-        // Add action for saveButton (not specified in the original code)
         saveButton.setOnAction(event -> {
-            // Here you would typically save the form data or perform other actions
-            // For demonstration, let's just print the form data to the console
             System.out.println("Nama: " + nameInput.getText());
             System.out.println("Pendidikan: " + educationInput.getText());
             System.out.println("Email: " + emailInput.getText());
@@ -131,6 +131,19 @@ public class FormLayout {
         StackPane root = new StackPane();
         root.setAlignment(Pos.CENTER); // Center align the StackPane
         root.getChildren().add(outerBox);
+        
+        // Isi otomatis form dengan detail pengguna
+        populateFormWithUserData(nameInput, emailInput);
+        
         return root;
+    }
+
+    private void populateFormWithUserData(TextField nameInput, TextField emailInput) {
+        // Lakukan query ke database untuk mendapatkan detail pengguna berdasarkan username
+        String[] userDetails = DbConnect.getUserDetails(username);
+        if (userDetails != null) {
+            nameInput.setText(userDetails[0]);
+            emailInput.setText(userDetails[1]);
+        }
     }
 }
