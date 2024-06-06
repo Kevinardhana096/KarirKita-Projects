@@ -62,24 +62,6 @@ public class RegisterLayout {
         TextField showPasswordField = new TextField();
         showPasswordField.setVisible(false);
 
-        CheckBox showPasswordCheckBox = new CheckBox("Show Password");
-
-        // Listener to toggle visibility
-        showPasswordCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            if (isSelected) {
-                showPasswordField.setText(createPasswordField.getText());
-                showPasswordField.setVisible(true);
-                createPasswordField.setVisible(false);
-            } else {
-                createPasswordField.setText(showPasswordField.getText());
-                createPasswordField.setVisible(true);
-                showPasswordField.setVisible(false);
-            }
-        });
-
-        // Bind the text properties so that they stay in sync
-        createPasswordField.textProperty().bindBidirectional(showPasswordField.textProperty());
-
         Button registerButton = new Button("Daftar");
         registerButton.setStyle("-fx-background-color: #6DC4D0;" +  "-fx-text-fill: white;" + "-fx-background-radius:50;" + "-fx-padding: 5 5;");
         registerButton.setPrefWidth(200);
@@ -93,9 +75,8 @@ public class RegisterLayout {
                 alert.showAndWait();
 
                 // Buka form layout setelah registrasi berhasil
-                FormLayout formLayout = new FormLayout(primaryStage, mainScene, createUserField.getText());
-                Scene formScene = new Scene(formLayout.createForm(), 800, 600);
-                primaryStage.setScene(formScene);
+                // FormLayout formLayout = new FormLayout(primaryStage, mainScene, createUserField.getText());
+                // Scene formScene = new Scene(formLayout.createForm(), 800, 600);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Registration Failed");
@@ -111,7 +92,7 @@ public class RegisterLayout {
 
         Label hasAccountLabel = new Label("Sudah memiliki akun?");
         
-        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, showPasswordCheckBox, registerButton, hasAccountLabel, loginButton);
+        VBox form = new VBox(10, registerTitle, creatUserLabel, createUserField, nameLabel, nameField, emailLabel, emailField, createPasswordLabel, createPasswordField, registerButton, hasAccountLabel, loginButton);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(20));
         form.setMaxWidth(300);

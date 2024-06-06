@@ -56,14 +56,20 @@ public class DbConnect {
 
     public static String[] getUserDetails(String username) {
         connection();
-        String query = "SELECT full_name, email FROM user WHERE user_name=?";
+        String query = "SELECT full_name, email, education, work_experience, skills FROM user WHERE user_name=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-
+    
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return new String[]{resultSet.getString("full_name"), resultSet.getString("email")};
+                    return new String[]{
+                        resultSet.getString("full_name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("education"),
+                        resultSet.getString("work_experience"),
+                        resultSet.getString("skills")
+                    };
                 }
             }
         } catch (SQLException e) {
@@ -71,4 +77,22 @@ public class DbConnect {
         }
         return null;
     }
+
+    public static boolean updateUserDetails(String username, String education, String workExperience, String skills) {
+        connection();
+        String query = "UPDATE user SET education = ?, work_experience = ?, skills = ? WHERE user_name = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, education);
+            preparedStatement.setString(2, workExperience);
+            preparedStatement.setString(3, skills);
+            preparedStatement.setString(4, username);
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+

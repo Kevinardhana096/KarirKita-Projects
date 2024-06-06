@@ -27,13 +27,9 @@ public class MainLayout {
     private Button marketingButton;
     private Button telekomunikasiButton;
     private Button desainVisualButton;
-    private Stage primaryStage;
-    private Scene mainScene; // Tambahkan mainScene
 
     public MainLayout(Stage primaryStage, Scene mainScene) {
-        this.primaryStage = primaryStage;
-        this.mainScene = mainScene; // Inisialisasi mainScene
-        mainLayout = createMainLayout();
+        mainLayout = createMainLayout(primaryStage); // Meneruskan primaryStage ke metode createMainLayout
     }
 
     public AnchorPane getMainLayout() {
@@ -84,22 +80,23 @@ public class MainLayout {
         return desainVisualButton;
     }
 
-    private AnchorPane createMainLayout() {
+    private AnchorPane createMainLayout(Stage primaryStage) {
         AnchorPane anchorPane = new AnchorPane();
-
+    
         // Create components
         HBox topBox = createTopBox();
         HBox yellowBox = createYellowBox();
         HBox logoBox = createLogoBox();
         HBox imBox = createImageTopBox();
         Label karirKitaLabel = createLabel("KarirKita", 62, 20, 72, 24, 15, "#cd9c49");
-
+        Button exitButton = createExitButton(primaryStage); // Tambahkan tombol exit
+    
         AnchorPane whiteSpace = createWhiteSpace();
-
+    
         // Add all children to the main AnchorPane
-        anchorPane.getChildren().addAll(topBox, yellowBox, logoBox, imBox, karirKitaLabel, whiteSpace);
+        anchorPane.getChildren().addAll(topBox, yellowBox, logoBox, imBox, karirKitaLabel, whiteSpace, exitButton);
         addAdditionalLabels(anchorPane);
-
+    
         return anchorPane;
     }
 
@@ -108,10 +105,17 @@ public class MainLayout {
         imBox.setLayoutX(750);
         imBox.setLayoutY(20);
         imBox.getChildren().addAll(
-            ImageTop("/image/Sertifikat.png", null),
             ImageTop("/image/Profil.png", event -> openFormLayout())
         );
         return imBox;
+    }
+
+    private Button createExitButton(Stage primaryStage) {
+        Button exitButton = new Button("Exit");
+        exitButton.setLayoutX(20);  // Sesuaikan posisi X sesuai kebutuhan
+        exitButton.setLayoutY(465);   // Sesuaikan posisi Y sesuai kebutuhan
+        exitButton.setOnAction(event -> primaryStage.close());
+        return exitButton;
     }
 
     private ImageView ImageTop(String imagePath, javafx.event.EventHandler<MouseEvent> eventHandler) {
@@ -157,6 +161,11 @@ public class MainLayout {
         keuanganButton = createButtonWithLabelAndImage("/image/Akuntansi.png", 370, 84, 146, 66, null);
         pendidikanButton = createButtonWithLabelAndImage("/image/Pendidikan.png", 532, 84, 146, 66, null);
         seniButton = createButtonWithLabelAndImage("/image/Seni.png", 693, 84, 146, 66, null);
+        telekomunikasiButton = createButtonWithLabelAndImage("/image/Telekomunikasi.png", 470, 91, 163, 52, null);
+        programmingButton = createButtonWithLabelAndImage("/image/Programming1.png", 267, 24, 163, 52, null);
+        digitalButton = createButtonWithLabelAndImage("/image/Digital.png", 470, 24, 163, 52, null);
+        marketingButton = createButtonWithLabelAndImage("/image/Marketing.png", 672, 24, 163, 52,null);
+        desainVisualButton   = createButtonWithLabelAndImage("/image/Design.png", 267, 91, 163, 52, null);
         topBox.getChildren().addAll(
             komunikasiButton,
             ITButton,
@@ -206,43 +215,15 @@ public class MainLayout {
 
     private void addButtonsToInnerPane(AnchorPane innerAnchorPane) {
         innerAnchorPane.getChildren().addAll(
-            createButtonWithIcon("Programming", "/image/Programming1.png", 267, 24, 163, 52, event -> openCourseProgrammingLayout()),
-            createButtonWithIcon("Digital", "/image/Digital.png", 470, 24, 163, 52, event -> openCourseDigitalLayout()),
-            createButtonWithIcon("Marketing", "/image/Marketing.png", 672, 24, 163, 52, event -> openCourseMarketingLayout()),
-            createButtonWithIcon("Desain Visual", "/image/Design.png", 267, 91, 163, 52, event -> openCourseDesignVisualLayout()),
-            createButtonWithIcon("Telekomunikasi", "/image/Telekomunikasi.png", 470, 91, 163, 52, event -> openCourseCommunicationLayout())
+            programmingButton = createButtonWithIcon("Programming", "/image/Programming1.png", 267, 24, 163, 52, null),
+            digitalButton = createButtonWithIcon("Digital", "/image/Digital.png", 470, 24, 163, 52, null),
+            marketingButton = createButtonWithIcon("Marketing", "/image/Marketing.png", 672, 24, 163, 52,null),
+            desainVisualButton   = createButtonWithIcon("Desain Visual", "/image/Design.png", 267, 91, 163, 52, null),
+            telekomunikasiButton = createButtonWithIcon("Telekomunikasi", "/image/Telekomunikasi.png", 470, 91, 163, 52, null)
+
         );
     }
 
-    private void openCourseProgrammingLayout() {
-        // Create an instance of CourseProgramming and navigate to it
-        CourseProgramming courseProgramming = new CourseProgramming(event -> primaryStage.setScene(mainScene), primaryStage);
-        primaryStage.setScene(courseProgramming.getCourseScene());
-    }
-
-    private void openCourseDigitalLayout() {
-        // Create an instance of CourseDigital and navigate to it
-        CourseDigital courseDigital = new CourseDigital(event -> primaryStage.setScene(mainScene), primaryStage);
-        primaryStage.setScene(courseDigital.getCourseScene());
-    }
-
-    private void openCourseMarketingLayout() {
-        // Create an instance of CourseMarketing and navigate to it
-        CourseMarketing courseMarketing = new CourseMarketing(event -> primaryStage.setScene(mainScene), primaryStage);
-        primaryStage.setScene(courseMarketing.getCourseScene());
-    }
-
-    private void openCourseCommunicationLayout() {
-        // Create an instance of CourseCommunication and navigate to it
-        CourseCommunication courseCommunication = new CourseCommunication(event -> primaryStage.setScene(mainScene), primaryStage);
-        primaryStage.setScene(courseCommunication.getCourseScene());
-    }
-
-    private void openCourseDesignVisualLayout() {
-        // Create an instance of CourseDesignVisual and navigate to it
-        CourseDesignVisual courseDesignVisual = new CourseDesignVisual(event -> primaryStage.setScene(mainScene), primaryStage);
-        primaryStage.setScene(courseDesignVisual.getCourseScene());
-    }
 
     private AnchorPane createWhiteSpace() {
         AnchorPane whiteSpace = new AnchorPane();

@@ -30,7 +30,6 @@ public abstract class BaseCourseScene {
     protected String[] imagePaths;
     protected String[] pdfPaths;
     protected Stage primaryStage;
-    protected Scene mainScene;
 
     public BaseCourseScene(String headerText, String[] imagePaths, String[] pdfPaths, EventHandler<javafx.event.ActionEvent> backButtonHandler, Stage primaryStage) {
         this.headerText = headerText;
@@ -101,13 +100,13 @@ public abstract class BaseCourseScene {
         buttonBox.setPadding(new Insets(20));
 
         // Create the main layout
-        BorderPane mainLayout = new BorderPane();
-        mainLayout.setTop(header);
-        mainLayout.setCenter(pdfContainer); // Center the HBox with PDFs and buttons
-        mainLayout.setBottom(buttonBox);
+        BorderPane mainLayout1 = new BorderPane();
+        mainLayout1.setTop(header);
+        mainLayout1.setCenter(pdfContainer); // Center the HBox with PDFs and buttons
+        mainLayout1.setBottom(buttonBox);
 
         // Create the scene
-        courseScene = new Scene(mainLayout, 1000, 600);
+        courseScene = new Scene(mainLayout1, 1000, 600);
 
         // Center the stage
         primaryStage.setScene(courseScene);

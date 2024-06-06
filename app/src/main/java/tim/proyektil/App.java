@@ -1,7 +1,7 @@
 package tim.proyektil;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -15,23 +15,26 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("KarirKita");
-        
+
         Image icon = new Image(getClass().getResourceAsStream("/image/Picture2.png")); // Replace with your icon file
         primaryStage.getIcons().add(icon);
-        
+
         // Create an instance of the login and register layout
         LoginLayout loginLayout = new LoginLayout();
         RegisterLayout registerLayout = new RegisterLayout(primaryStage, null);
         MainLayout mainLayout = new MainLayout(primaryStage, mainScene); // Instantiate MainLayout with mainScene
-        
+        mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
+
         Scene loginScene = new Scene(loginLayout.getMainLayout(), 650, 640);
         Scene registerScene = new Scene(registerLayout.getMainLayout(), 650, 640);
-        mainScene = new Scene(mainLayout.getMainLayout(), 890, 505); // Create scene for MainLayout
-        
+
+        // Event handler for back button
+        EventHandler<javafx.event.ActionEvent> backButtonHandler = event -> primaryStage.setScene(mainScene);
+
         // Set scene transitions from login to register and vice versa
         loginLayout.getRegisterButton().setOnAction(event -> primaryStage.setScene(registerScene));
         registerLayout.getLoginButton().setOnAction(event -> primaryStage.setScene(loginScene));
-        
+
         // Set scene to MainLayout when login is successful
         loginLayout.loginButton.setOnAction(event -> {
             String username = loginLayout.getUserName();
@@ -47,7 +50,7 @@ public class App extends Application {
                 alert.showAndWait();
             }
         });
-        
+
         // Set scene transitions from MainLayout to form layout
         mainLayout.getProfileImage().setOnMouseClicked(event -> {
             FormLayout formLayout = new FormLayout(primaryStage, mainScene, loginLayout.getUserName());
@@ -56,12 +59,18 @@ public class App extends Application {
         });
 
         // Set scene transitions from MainLayout to other scenes
+        mainLayout.getTelekomunikasiButton().setOnAction(event -> primaryStage.setScene(new CourseCommunication(backButtonHandler, primaryStage).getCourseScene()));
+        mainLayout.getProgrammingButton().setOnAction(event -> primaryStage.setScene(new CourseProgramming(backButtonHandler, primaryStage).getCourseScene()));
+        mainLayout.getDesainVisualButton().setOnAction(event -> primaryStage.setScene(new CourseDesignVisual(backButtonHandler, primaryStage).getCourseScene()));
+        mainLayout.getDigitalButton().setOnAction(event -> primaryStage.setScene(new CourseDigital(backButtonHandler, primaryStage).getCourseScene()));
+        mainLayout.getMarketingButton().setOnAction(event -> primaryStage.setScene(new CourseMarketing(backButtonHandler, primaryStage).getCourseScene()));
+        
         mainLayout.getKomunikasiButton().setOnAction(event -> primaryStage.setScene(new KomunikasiScene(primaryStage, mainScene).getScene()));
         mainLayout.getITButton().setOnAction(event -> primaryStage.setScene(new ITScene(primaryStage, mainScene).getScene()));
         mainLayout.getKeuanganButton().setOnAction(event -> primaryStage.setScene(new KeuanganScene(primaryStage, mainScene).getScene()));
         mainLayout.getPendidikanButton().setOnAction(event -> primaryStage.setScene(new PendidikanScene(primaryStage, mainScene).getScene()));
         mainLayout.getSeniButton().setOnAction(event -> primaryStage.setScene(new SeniDesainScene(primaryStage, mainScene).getScene()));
-        
+
         primaryStage.setScene(loginScene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -69,5 +78,10 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public Object getGreeting() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getGreeting'");
     }
 }
